@@ -68,3 +68,33 @@
   - Vitest tests for `CardSwipe` gestures and keyboard shortcuts.
   - XP / streak / combo logic tests.
 
+### Distribution & install (binary + terminal)
+
+- **Build artifacts**
+  - Use Tauri’s `tauri build` in `better-anki-app/` to produce:
+    - **macOS**: `.dmg` and optionally `.app` (for Homebrew cask).
+    - **Windows**: `.msi` and/or `.exe` installer.
+    - **Linux**: `.deb`, `.AppImage`, or `.rpm` (Tauri 2 supports these).
+  - Ensure `rslib` (and any native deps) are built in CI (e.g. `./check` or `cargo build --release` for the workspace, then build the app against it).
+
+- **Terminal install**
+  - **Option A – Homebrew (macOS/Linux)**
+    - **Formula**: `better-anki` formula that downloads the latest GitHub release tarball/zip (e.g. `better-anki-app_*_x64.dmg` or binary), extracts and installs the app/binary.
+    - **Tap**: e.g. `brew tap 3d3n-ops/better-anki` then `brew install better-anki`.
+  - **Option B – curl | sh**
+    - Install script (e.g. `install.sh`) that:
+      - Detects OS/arch, downloads the right asset from GitHub Releases.
+      - On macOS: mount `.dmg`, copy `.app` to `/Applications`, unmount.
+      - On Linux: download `.AppImage` or `.deb`, install or place in `~/.local/bin`.
+      - On Windows: download installer and run (or provide `winget`/scoop later).
+  - **Option C – Cargo**
+    - Optional: a small `better-anki-bin` crate in the repo that wraps launching the Tauri app (or a CLI that opens it). Users run `cargo install better-anki-bin` after building the Tauri app once. Less ideal for non-Rust users; good for devs.
+
+- **CI / releases**
+  - **GitHub Actions**: workflow on tag push (e.g. `v0.1.0`) that:
+    - Runs tests and `./check` (or at least `cargo check` + frontend build).
+    - Builds `better-anki-app` with `tauri build` for macOS (x64 + arm64), Windows (x64), Linux (x64).
+    - Uploads artifacts and creates a GitHub Release with install instructions (Homebrew, curl script, direct download).
+  - **Versioning**: align `better-anki-app` version with release tags (e.g. in `tauri.conf.json` and `package.json`).
+</think>
+
