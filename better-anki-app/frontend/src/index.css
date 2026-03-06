@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ba-bg: #0a0a0f;
+  --ba-surface: #14141e;
+  --ba-surface2: #1e1e2e;
+  --ba-border: rgba(255, 255, 255, 0.08);
+  --ba-accent: #6c63ff;
+  --ba-accent2: #ff6b9d;
+  --ba-green: #4ade80;
+  --ba-red: #f87171;
+  --ba-yellow: #fbbf24;
+  --ba-text: #f0f0f8;
+  --ba-muted: rgba(240, 240, 248, 0.45);
+}
+
+body {
+  @apply bg-ba-bg text-ba-text font-body antialiased;
+}

@@ -1,0 +1,20 @@
+[package]
+name = "better-anki-app"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dirs = "6"
+rusqlite = { version = "0.36", features = ["bundled"] }
+anki = { path = "../../rslib" }
+anki_i18n = { path = "../../rslib/i18n" }
+anki_proto = { path = "../../rslib/proto" }
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
